@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Лабораторна робота №3: макет головної сторінки YouTube за допомогою CSS Flexbox.">
+  <title>Лабораторна №3 — YouTube Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- SVG-піктограми для навчального макета -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="icon-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6"/></symbol>
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-7v-7h-4v7H3z"/></symbol>
+    <symbol id="icon-shorts" viewBox="0 0 24 24"><path d="M10 3 5.5 6a4 4 0 0 0 0 7L8 14l-2 1.2a4 4 0 0 0 4.2 6.8l8.3-5a4 4 0 0 0 0-7L16 9l2-1.3A4 4 0 0 0 13.9.9z"/><path d="m10 9 5 3-5 3z"/></symbol>
+    <symbol id="icon-sub" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="3"/><path d="M7 3h10M10 10l5 3-5 3z"/></symbol>
+    <symbol id="icon-history" viewBox="0 0 24 24"><path d="M3 5v5h5M3.5 10a9 9 0 1 1 2 7"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-playlist" viewBox="0 0 24 24"><path d="M3 6h13M3 11h13M3 16h8M16 14l5 3-5 3z"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></symbol>
+    <symbol id="icon-like" viewBox="0 0 24 24"><path d="M8 10v11H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h4zm0 0 4-8a2 2 0 0 1 2.5 2.5L14 9h5a3 3 0 0 1 3 3l-1 6a3 3 0 0 1-3 3H8"/></symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="3"/><path d="m17 10 4-3v10l-4-3"/></symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 8-3 9h18c0-1-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="topbar__left">
+      <button class="icon-button menu-toggle" type="button" aria-label="Згорнути або розгорнути меню" aria-expanded="true">
+        <svg><use href="#icon-menu"/></svg>
+      </button>
+      <a href="index.html" class="brand" aria-label="YouTube — головна">
+        <span class="brand__mark"><span class="brand__triangle"></span></span>
+        <span class="brand__word">YouTube</span><sup>UA</sup>
+      </a>
+    </div>
+    <div class="topbar__center">
+      <form class="search" id="search-form" role="search">
+        <label class="visually-hidden" for="site-search">Пошук відео</label>
+        <input id="site-search" type="search" placeholder="Пошук" autocomplete="off">
+        <button type="submit" class="search__button" aria-label="Пошук"><svg><use href="#icon-search"/></svg></button>
+      </form>
+      <button type="button" class="icon-button mic-button" title="Макет голосового пошуку" aria-label="Мікрофон"><svg><use href="#icon-mic"/></svg></button>
+    </div>
+    <div class="topbar__right">
+      <span class="demo-tag">Навчальний макет</span>
+      <button type="button" class="icon-button" aria-label="Створити відео" title="Елемент макета"><svg><use href="#icon-video"/></svg></button>
+      <button type="button" class="icon-button" aria-label="Сповіщення" title="Елемент макета"><svg><use href="#icon-bell"/></svg></button>
+      <span class="profile" title="Павлов Іван">І</span>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Бічне меню">
+      <nav class="sidebar__group">
+        <a href="#home" class="side-link is-active"><svg><use href="#icon-home"/></svg><span>Головна</span></a>
+        <a href="#shorts" class="side-link"><svg><use href="#icon-shorts"/></svg><span>Shorts</span></a>
+        <a href="#subscriptions" class="side-link"><svg><use href="#icon-sub"/></svg><span>Підписки</span></a>
+      </nav>
+      <nav class="sidebar__group">
+        <h2 class="sidebar__heading">Ви <svg><use href="#icon-chevron"/></svg></h2>
+        <a href="#history" class="side-link"><svg><use href="#icon-history"/></svg><span>Історія</span></a>
+        <a href="#playlist" class="side-link"><svg><use href="#icon-playlist"/></svg><span>Плейлисти</span></a>
+        <a href="#later" class="side-link"><svg><use href="#icon-clock"/></svg><span>Переглянути пізніше</span></a>
+        <a href="#liked" class="side-link"><svg><use href="#icon-like"/></svg><span>Вподобані відео</span></a>
+      </nav>
+      <div class="sidebar__group">
+        <h2 class="sidebar__heading">Підписки</h2>
+        <div class="subscription"><span class="sub-avatar sub-avatar--blue">IT</span><span>Світ технологій</span></div>
+        <div class="subscription"><span class="sub-avatar sub-avatar--rose">UX</span><span>Дизайн щодня</span></div>
+        <div class="subscription"><span class="sub-avatar sub-avatar--green">C</span><span>Code Academy</span></div>
+      </div>
+      <p class="sidebar__foot">Лабораторна робота №3 · Flexbox<br>Навчальний макет інтерфейсу</p>
+    </aside>
+
+    <main class="main" id="home">
+      <div class="filter-bar" role="group" aria-label="Категорії відео">
+        <button class="filter-chip is-active" data-filter="all" type="button">Усі</button>
+        <button class="filter-chip" data-filter="coding" type="button">Програмування</button>
+        <button class="filter-chip" data-filter="tech" type="button">Технології</button>
+        <button class="filter-chip" data-filter="design" type="button">Дизайн</button>
+        <button class="filter-chip" data-filter="music" type="button">Музика</button>
+        <button class="filter-chip" data-filter="games" type="button">Ігри</button>
+        <button class="filter-chip" data-filter="travel" type="button">Подорожі</button>
+      </div>
+
+      <div class="page-intro">
+        <h1>Рекомендовані відео</h1>
+        <p>Макет головної сторінки YouTube, створений за допомогою HTML5 та CSS Flexbox</p>
+      </div>
+
+      <div class="video-grid" id="video-grid">
+        <article class="video-card" data-category="coding" data-title="CSS Flexbox з нуля адаптивний сайт">
+          <a class="video-thumb video-thumb--violet" href="https://www.youtube.com/results?search_query=CSS+Flexbox+урок" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео про CSS Flexbox">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=80" alt="Робоче місце з комп'ютером і кодом">
+            <span class="thumb-label">HTML + CSS<br>FLEXBOX</span><span class="duration">18:42</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--violet">C</span><div><h2><a href="https://www.youtube.com/results?search_query=CSS+Flexbox+урок" target="_blank" rel="noopener noreferrer">CSS Flexbox з нуля: адаптивний сайт</a></h2><p>Code Academy</p><p>125 тис. переглядів · 2 тижні тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="tech" data-title="Комп'ютерні технології нові гаджети">
+          <a class="video-thumb video-thumb--blue" href="https://www.youtube.com/results?search_query=нові+комп%27ютерні+технології" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео про технології">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80" alt="Електронні компоненти на платі">
+            <span class="thumb-label">TECH<br>ОГЛЯД</span><span class="duration">12:08</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--blue">T</span><div><h2><a href="https://www.youtube.com/results?search_query=нові+комп%27ютерні+технології" target="_blank" rel="noopener noreferrer">Що цікавого у світі комп'ютерних технологій?</a></h2><p>ТехноСвіт</p><p>87 тис. переглядів · 4 дні тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="design" data-title="Дизайн інтерфейсу UI UX правила">
+          <a class="video-thumb video-thumb--pink" href="https://www.youtube.com/results?search_query=UI+UX+design+tutorial" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео про UI UX дизайн">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=900&q=80" alt="Мобільний дизайн та колірні палітри">
+            <span class="thumb-label">UI / UX<br>DESIGN</span><span class="duration">24:16</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--pink">D</span><div><h2><a href="https://www.youtube.com/results?search_query=UI+UX+design+tutorial" target="_blank" rel="noopener noreferrer">7 правил сучасного дизайну інтерфейсу</a></h2><p>Design Lab</p><p>49 тис. переглядів · 1 тиждень тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="games" data-title="Ігровий комп'ютер геймінг">
+          <a class="video-thumb video-thumb--orange" href="https://www.youtube.com/results?search_query=ігровий+комп%27ютер+огляд" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео про ігрові комп'ютери">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&q=80" alt="Ігрова кіберспортивна сцена">
+            <span class="thumb-label">GAMING<br>SETUP</span><span class="duration">16:31</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--orange">G</span><div><h2><a href="https://www.youtube.com/results?search_query=ігровий+комп%27ютер+огляд" target="_blank" rel="noopener noreferrer">Ігровий сетап: що потрібно для комфорту?</a></h2><p>Game Zone</p><p>216 тис. переглядів · 3 дні тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="coding" data-title="JavaScript уроки для початківців">
+          <a class="video-thumb video-thumb--green" href="https://www.youtube.com/results?search_query=javascript+для+початківців" target="_blank" rel="noopener noreferrer" aria-label="Знайти уроки JavaScript">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=80" alt="Ноутбук і робочий стіл">
+            <span class="thumb-label">JAVASCRIPT<br>START</span><span class="duration">32:05</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--green">JS</span><div><h2><a href="https://www.youtube.com/results?search_query=javascript+для+початківців" target="_blank" rel="noopener noreferrer">JavaScript для початківців: перші кроки</a></h2><p>Кодимо разом</p><p>73 тис. переглядів · 1 місяць тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="travel" data-title="Подорожі гори природа маршрут">
+          <a class="video-thumb video-thumb--teal" href="https://www.youtube.com/results?search_query=подорожі+Карпати+влог" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео про подорожі">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80" alt="Гірський ландшафт">
+            <span class="thumb-label">TRAVEL<br>VLOG</span><span class="duration">14:57</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--teal">V</span><div><h2><a href="https://www.youtube.com/results?search_query=подорожі+Карпати+влог" target="_blank" rel="noopener noreferrer">Неймовірні краєвиди: подорож у гори</a></h2><p>Мандри UA</p><p>33 тис. переглядів · 5 днів тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="music" data-title="Музика студія навушники звук">
+          <a class="video-thumb video-thumb--red" href="https://www.youtube.com/results?search_query=музика+для+роботи" target="_blank" rel="noopener noreferrer" aria-label="Знайти музику для роботи">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=900&q=80" alt="Музичне обладнання у студії">
+            <span class="thumb-label">MUSIC<br>VIBES</span><span class="duration">48:20</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--red">M</span><div><h2><a href="https://www.youtube.com/results?search_query=музика+для+роботи" target="_blank" rel="noopener noreferrer">Спокійна музика для навчання та роботи</a></h2><p>Music Flow</p><p>1,2 млн переглядів · 3 місяці тому</p></div></div>
+        </article>
+
+        <article class="video-card" data-category="tech" data-title="Збірка комп'ютера компоненти">
+          <a class="video-thumb video-thumb--slate" href="https://www.youtube.com/results?search_query=як+зібрати+комп%27ютер" target="_blank" rel="noopener noreferrer" aria-label="Знайти відео зі збірки ПК">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=900&q=80" alt="Системний блок комп'ютера">
+            <span class="thumb-label">PC BUILD<br>GUIDE</span><span class="duration">21:19</span>
+          </a>
+          <div class="video-meta"><span class="channel-avatar channel-avatar--slate">PC</span><div><h2><a href="https://www.youtube.com/results?search_query=як+зібрати+комп%27ютер" target="_blank" rel="noopener noreferrer">Як зібрати комп'ютер: основні компоненти</a></h2><p>Hardware UA</p><p>102 тис. переглядів · 6 днів тому</p></div></div>
+        </article>
+      </div>
+
+      <p class="empty-state" id="empty-state" hidden>За вашим запитом нічого не знайдено. Спробуйте іншу категорію або слово.</p>
+
+      <section class="shorts-section" id="shorts">
+        <div class="section-title"><span class="shorts-icon">▶</span><h2>Shorts</h2><span class="section-title__note">Короткі відео</span></div>
+        <div class="shorts-row">
+          <div class="short-card"><div class="short-card__art short-card__art--1"><span>CSS</span><strong>3 лайфхаки</strong></div><h3>Корисні прийоми CSS</h3><p>24 тис. переглядів</p></div>
+          <div class="short-card"><div class="short-card__art short-card__art--2"><span>PC</span><strong>Топ залізо</strong></div><h3>Що всередині ПК?</h3><p>86 тис. переглядів</p></div>
+          <div class="short-card"><div class="short-card__art short-card__art--3"><span>UI</span><strong>Дизайн</strong></div><h3>Ідея для інтерфейсу</h3><p>31 тис. переглядів</p></div>
+          <div class="short-card"><div class="short-card__art short-card__art--4"><span>JS</span><strong>1 хвилина</strong></div><h3>JavaScript швидко</h3><p>54 тис. переглядів</p></div>
+          <div class="short-card"><div class="short-card__art short-card__art--5"><span>TRAVEL</span><strong>Гори</strong></div><h3>Краєвиди природи</h3><p>12 тис. переглядів</p></div>
+        </div>
+      </section>
+      <footer class="site-footer">Лабораторна робота №3 · Павлов Іван · HTML + Flexbox · Демонстраційний макет, не офіційний сайт YouTube</footer>
+    </main>
+  </div>
+</body>
+</html>
